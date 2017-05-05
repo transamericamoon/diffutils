@@ -27,7 +27,7 @@ cmp a b
 a b differ: char 1, line 1
 1
 cmp a c
-cmp: EOF on c after byte 0, line 0
+cmp: EOF on c which is empty
 1
 cmp a d
 cmp: d: No such file or directory
@@ -38,16 +38,16 @@ b a differ: char 1, line 1
 cmp b b
 0
 cmp b c
-cmp: EOF on c after byte 0, line 0
+cmp: EOF on c which is empty
 1
 cmp b d
 cmp: d: No such file or directory
 2
 cmp c a
-cmp: EOF on c after byte 0, line 0
+cmp: EOF on c which is empty
 1
 cmp c b
-cmp: EOF on c after byte 0, line 0
+cmp: EOF on c which is empty
 1
 cmp c c
 0
@@ -72,7 +72,7 @@ cmp -l a b
 1 141 142
 1
 cmp -l a c
-cmp: EOF on c after byte 0
+cmp: EOF on c which is empty
 1
 cmp -l a d
 cmp: d: No such file or directory
@@ -83,16 +83,16 @@ cmp -l b a
 cmp -l b b
 0
 cmp -l b c
-cmp: EOF on c after byte 0
+cmp: EOF on c which is empty
 1
 cmp -l b d
 cmp: d: No such file or directory
 2
 cmp -l c a
-cmp: EOF on c after byte 0
+cmp: EOF on c which is empty
 1
 cmp -l c b
-cmp: EOF on c after byte 0
+cmp: EOF on c which is empty
 1
 cmp -l c c
 0
@@ -154,12 +154,58 @@ for option in '' -l -s; do
   for i in a b c d; do
     for j in a b c d; do
       echo cmp $option $i $j
-      cmp $option $i $j 2>&1
-      echo $?
+      cmp $option $i $j >stdout 2>stderr
+      status=$?
+      cat stderr stdout
+      echo $status
     done
   done
 done >out
 
 compare exp out || fail=1
+
+cat <<'EOF' > exp1 || fail=1
+cmp a0 a1
+cmp: EOF on a0 which is empty
+1
+cmp a1 a2
+cmp: EOF on a1 after byte 2, line 1
+1
+cmp a2 a3
+cmp: EOF on a2 after byte 5, in line 2
+1
+cmp -l a0 a1
+cmp: EOF on a0 which is empty
+1
+cmp -l a1 a2
+cmp: EOF on a1 after byte 2
+1
+cmp -l a2 a3
+cmp: EOF on a2 after byte 5
+1
+cmp -s a0 a1
+1
+cmp -s a1 a2
+1
+cmp -s a2 a3
+1
+EOF
+
+printf '' >a0
+printf '1\n' >a1
+printf '1\nfoo' >a2
+printf '1\nfoolery\n' >a3
+
+for option in '' -l -s; do
+  for files in 'a0 a1' 'a1 a2' 'a2 a3'; do
+    echo cmp $option $files
+    cmp $option $files >stdout 2>stderr
+    status=$?
+    cat stderr stdout
+    echo $status
+  done
+done >out1
+
+compare exp1 out1 || fail=1
 
 Exit $fail

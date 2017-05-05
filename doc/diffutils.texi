@@ -3511,15 +3511,16 @@ reports the location of the first difference to standard output:
 
 @noindent
 If one file is a prefix of the other, @command{cmp} reports the
-shorter file's length to standard error (@acronym{POSIX} allows but
-does not require the shorter file's name to be followed by a blank and
-additional information):
+shorter file's name to standard error, followed by a blank and extra
+information about the shorter file:
 
 @example
-cmp: EOF on @var{shorter-file} after byte @var{byte-number}, line @var{line-number}
+cmp: EOF on @var{shorter-file} @var{extra-info}
 @end example
 
 The message formats can differ outside the @acronym{POSIX} locale.
+@acronym{POSIX} allows but does not require the EOF diagnostic's file
+name to be followed by a blank and additional information.
 
 An exit status of 0 means no differences were found, 1 means some
 differences were found, and 2 means trouble.
@@ -3566,8 +3567,7 @@ instead of the default standard output.
 Each output line contains a differing byte's number relative to the
 start of the input, followed by the differing byte values.
 Byte numbers start at 1.
-Also, if one file is shorter than the other, output the @acronym{EOF}
-message with just a byte number.
+Also, output the @acronym{EOF} message if one file is shorter than the other.
 
 @item -n @var{count}
 @itemx --bytes=@var{count}
