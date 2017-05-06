@@ -24,8 +24,7 @@ manual_title = Comparing and Merging Files
 # Tests not to run as part of "make distcheck".
 local-checks-to-skip =		\
   sc_error_message_period	\
-  sc_error_message_uppercase	\
-  sc_texinfo_acronym
+  sc_error_message_uppercase
 
 # Tools used to bootstrap this package, used for "announcement".
 bootstrap-tools = autoconf,automake,gnulib
