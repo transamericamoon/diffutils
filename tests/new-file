@@ -28,7 +28,10 @@ echo '1d0
 returns_ 1 diff -N a - <&- > out || fail=1
 compare exp out || fail=1
 
+# With closed standard input, require an exit status of 2
+# and empty stdout.
 returns_ 2 diff --unidirectional-new-file a - <&- > out || fail=1
+compare /dev/null out || fail=1
 
 returns_ 1 diff -N - b < a > out || fail=1
 compare exp out || fail=1
