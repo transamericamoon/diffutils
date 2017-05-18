@@ -230,3 +230,11 @@ verify (LIN_MAX <= TYPE_MAXIMUM (printint));
 #endif
 
 #define STREQ(a, b) (strcmp (a, b) == 0)
+
+#ifndef FALLTHROUGH
+# if __GNUC__ < 7
+#  define FALLTHROUGH ((void) 0)
+# else
+#  define FALLTHROUGH __attribute__ ((__fallthrough__))
+# endif
+#endif

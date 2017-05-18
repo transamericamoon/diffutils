@@ -150,7 +150,7 @@ print_half_line (char const *const *line, size_t indent, size_t out_bound)
 		break;
 	      }
 	  }
-	  /* Fall through.  */
+	  FALLTHROUGH;
 	case '\f':
 	case '\v':
 	  if (in_position < out_bound)

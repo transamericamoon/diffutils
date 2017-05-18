@@ -918,10 +918,10 @@ edit (struct line_filter *left, char const *lname, lin lline, lin llen,
 		  cmd0 = 'q';
 		  break;
 		}
-	      /* Fall through.  */
+	      FALLTHROUGH;
 	    default:
 	      flush_line ();
-	      /* Fall through.  */
+	      FALLTHROUGH;
 	    case '\n':
 	      give_help ();
 	      continue;
@@ -974,7 +974,7 @@ edit (struct line_filter *left, char const *lname, lin lline, lin llen,
 		    else
 		      fprintf (tmp, "--- %s %"pI"d,%"pI"d\n", lname, l1, l2);
 		  }
-		/* Fall through.  */
+		FALLTHROUGH;
 	      case '1': case 'b': case 'l':
 		lf_copy (left, llen, tmp);
 		break;
@@ -996,7 +996,7 @@ edit (struct line_filter *left, char const *lname, lin lline, lin llen,
 		    else
 		      fprintf (tmp, "+++ %s %"pI"d,%"pI"d\n", rname, l1, l2);
 		  }
-		/* Fall through.  */
+		FALLTHROUGH;
 	      case '2': case 'b': case 'r':
 		lf_copy (right, rlen, tmp);
 		break;

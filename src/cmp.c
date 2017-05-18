@@ -516,7 +516,7 @@ cmp (void)
 			    c0, s0, c1, s1);
 		  }
 	      }
-	      /* Fall through.  */
+	      FALLTHROUGH;
 	    case type_status:
 	      return EXIT_FAILURE;
 

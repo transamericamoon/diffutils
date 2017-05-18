@@ -382,7 +382,7 @@ get_funky_string (char **dest, const char **src, bool equals_end,
                   state = ST_END; /* End */
                   break;
                 }
-              /* fall through */
+              FALLTHROUGH;
             default:
               *(q++) = *(p++);
               ++count;
@@ -1089,7 +1089,7 @@ lines_differ (char const *s1, char const *s2)
 		}
 	      if (ignore_white_space == IGNORE_TRAILING_SPACE)
 		break;
-	      /* Fall through.  */
+	      FALLTHROUGH;
 	    case IGNORE_TAB_EXPANSION:
 	      if ((c1 == ' ' && c2 == '\t')
 		  || (c1 == '\t' && c2 == ' '))

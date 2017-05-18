@@ -301,10 +301,10 @@ main (int argc, char **argv)
 	  break;
 	case 'X':
 	  overlap_only = true;
-	  /* Fall through.  */
+	  FALLTHROUGH;
 	case 'E':
 	  flagging = true;
-	  /* Fall through.  */
+	  FALLTHROUGH;
 	case 'e':
 	  incompat++;
 	  break;

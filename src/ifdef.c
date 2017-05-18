@@ -362,7 +362,7 @@ do_printf_spec (FILE *out, char const *spec,
 	    printint print_value = value;
 	    size_t spec_prefix_len = f - spec - 2;
 	    size_t pI_len = sizeof pI - 1;
-#if HAVE_C_VARARRAYS
+#if 0
 	    char format[spec_prefix_len + pI_len + 2];
 #else
 	    char *format = xmalloc (spec_prefix_len + pI_len + 2);
