@@ -29,6 +29,9 @@ local-checks-to-skip =		\
 # Tools used to bootstrap this package, used for "announcement".
 bootstrap-tools = autoconf,automake,gnulib
 
+# Override the default Cc: used in generating an announcement.
+announcement_Cc_ = $(translation_project_), $(PACKAGE)-devel@gnu.org
+
 # Now that we have better tests, make this the default.
 export VERBOSE = yes
 
