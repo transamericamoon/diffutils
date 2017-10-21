@@ -14,6 +14,7 @@ TESTS = \
   function-line-vs-leading-space \
   ignore-matching-lines \
   label-vs-func	\
+  large-subopt \
   new-file \
   no-dereference \
   no-newline-at-eof \
@@ -22,8 +23,12 @@ TESTS = \
   filename-quoting \
   colors
 
+XFAIL_TESTS = large-subopt
+
 EXTRA_DIST = \
-  $(TESTS) init.sh t-local.sh envvar-check
+  $(TESTS) init.sh t-local.sh envvar-check \
+  large-subopt.in1 \
+  large-subopt.in2
 
 # Note that the first lines are statements.  They ensure that environment
 # variables that can perturb tests are unset or set to expected values.
