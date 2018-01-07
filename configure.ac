@@ -1,6 +1,6 @@
 # Configure template for GNU Diffutils.
 
-# Copyright (C) 1994-1995, 1998, 2001-2002, 2004, 2006, 2009-2013, 2015-2017
+# Copyright (C) 1994-1995, 1998, 2001-2002, 2004, 2006, 2009-2013, 2015-2018
 # Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify

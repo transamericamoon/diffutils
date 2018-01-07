@@ -1,6 +1,6 @@
 # Automakefile for GNU diffutils programs.
 
-# Copyright (C) 2001-2002, 2006, 2009-2013, 2015-2017 Free Software Foundation,
+# Copyright (C) 2001-2002, 2006, 2009-2013, 2015-2018 Free Software Foundation,
 # Inc.
 
 # This program is free software: you can redistribute it and/or modify
