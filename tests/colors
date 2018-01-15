@@ -85,7 +85,7 @@ returns_ 1 diff --color=auto a b > out || fail=1
 gen_exp_default > exp || framework_failure_
 compare exp out || fail=1
 
-returns_ 1 env PATH=$PATH TERM=dumb \
+returns_ 1 env PATH="$PATH" TERM=dumb \
          diff ---presume-output-tty --color=auto a b > out \
   || fail=1
 gen_exp_default > exp || framework_failure_
