@@ -805,7 +805,7 @@ checksigs (void)
 
       /* Yield an exit status indicating that a signal was received.  */
       untrapsig (s);
-      kill (getpid (), s);
+      raise (s);
 
       /* That didn't work, so exit with error status.  */
       exit (EXIT_TROUBLE);
