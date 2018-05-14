@@ -1,4 +1,4 @@
-/* cmp - compare two files byte by byte
+/* GNU cmp - compare two files byte by byte
 
    Copyright (C) 1990-1996, 1998, 2001-2002, 2004, 2006-2007, 2009-2013,
    2015-2018 Free Software Foundation, Inc.

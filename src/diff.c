@@ -1,4 +1,4 @@
-/* diff - compare files line by line
+/* GNU diff - compare files line by line
 
    Copyright (C) 1988-1989, 1992-1994, 1996, 1998, 2001-2002, 2004, 2006-2007,
    2009-2013, 2015-2018 Free Software Foundation, Inc.
