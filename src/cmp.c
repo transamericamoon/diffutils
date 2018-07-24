@@ -639,9 +639,11 @@ count_newlines (char *buf, size_t bufsize)
   size_t count = 0;
   char *p;
   char *lim = buf + bufsize;
+  char ch = *lim;
   *lim = '\n';
   for (p = buf; (p = rawmemchr (p, '\n')) != lim; p++)
     count++;
+  *lim = ch;
   return count;
 }
 
