@@ -80,6 +80,8 @@ static void usage (void);
    recursively.  */
 static bool recursive;
 
+static bool recursiveAbsent;
+
 /* In context diffs, show previous lines that match these regexps.  */
 static struct regexp_list function_regexp_list;
 
@@ -106,7 +108,7 @@ static bool unidirectional_new_file;
 static bool report_identical_files;
 
 static char const shortopts[] =
-"0123456789abBcC:dD:eEfF:hHiI:lL:nNpPqrsS:tTuU:vwW:x:X:yZ";
+"0123456789abBcC:dD:eEfF:hHiI:lL:nNpPqrRsS:tTuU:vwW:x:X:yZ";
 
 /* Values for long options that do not have single-letter equivalents.  */
 enum
@@ -203,6 +205,7 @@ static struct option const longopts[] =
   {"palette", 1, 0, COLOR_PALETTE_OPTION},
   {"rcs", 0, 0, 'n'},
   {"recursive", 0, 0, 'r'},
+  {"recursiveAbsent", 0, 0, 'R'},
   {"report-identical-files", 0, 0, 's'},
   {"sdiff-merge-assist", 0, 0, SDIFF_MERGE_ASSIST_OPTION},
   {"show-c-function", 0, 0, 'p'},
@@ -474,6 +477,11 @@ main (int argc, char **argv)
 
 	case 'r':
 	  recursive = true;
+	  break;
+
+	case 'R':
+	  recursive = true;
+	  recursiveAbsent = true;
 	  break;
 
 	case 's':
@@ -912,6 +920,7 @@ static char const * const option_help_msgid[] = {
   N_("-l, --paginate                pass output through 'pr' to paginate it"),
   "",
   N_("-r, --recursive                 recursively compare any subdirectories found"),
+  N_("-R, --recursive-absent          recursively compare any subdirectories found and show absent files/folders"),
   N_("    --no-dereference            don't follow symbolic links"),
   N_("-N, --new-file                  treat absent files as empty"),
   N_("    --unidirectional-new-file   treat absent first files as empty"),
@@ -1115,7 +1124,8 @@ compare_files (struct comparison const *parent,
 
       /* Return EXIT_FAILURE so that diff_dirs will return
 	 EXIT_FAILURE ("some files differ").  */
-      return EXIT_FAILURE;
+     if(!recursiveAbsent)
+       return EXIT_FAILURE;
     }
 
   memset (cmp.file, 0, sizeof cmp.file);
@@ -1195,6 +1205,13 @@ compare_files (struct comparison const *parent,
 	    cmp.file[f].desc = ERRNO_ENCODE (errno);
 	}
     }
+    /* BOTH ARE FILES AND AT LEAST ONE DOESN"T EXIST  */
+      if(recursiveAbsent && (!DIR_P(0) && !DIR_P(1))
+        && (cmp.file[0].desc == NONEXISTENT
+        || cmp.file[1].desc == NONEXISTENT) )
+        {
+          status =  EXIT_FAILURE;
+        }
 
   /* Mark files as nonexistent as needed for -N and -P, if they are
      inaccessible empty regular files (the kind of files that 'patch'

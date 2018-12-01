@@ -70,6 +70,9 @@ dir_read (struct file_data const *dir, struct dirdata *dirdata)
   nnames = 0;
   data = 0;
 
+  /* store full path to file for exclusion check */
+  char buf[4096];
+
   if (dir->desc != -1)
     {
       /* Open the directory and check for errors.  */
@@ -96,8 +99,12 @@ dir_read (struct file_data const *dir, struct dirdata *dirdata)
 	      && (d_name[1] == 0 || (d_name[1] == '.' && d_name[2] == 0)))
 	    continue;
 
-	  if (excluded_file_name (excluded, d_name))
+      /* Check entire file path for pattern */
+      snprintf(buf, sizeof buf, "%s/%s", dir->name, d_name);
+	  if (excluded_file_name (excluded, buf))
 	    continue;
+	  //if (excluded_file_name (excluded, d_name))
+	  //  continue;
 
 	  while (data_alloc < data_used + d_size)
 	    {

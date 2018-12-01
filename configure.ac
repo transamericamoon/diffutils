@@ -50,7 +50,7 @@ AC_ARG_ENABLE([gcc-warnings],
    esac
    gl_gcc_warnings=$enableval],
   [if test -d "$srcdir"/.git; then
-     gl_gcc_warnings=yes
+     gl_gcc_warnings=no
    else
      gl_gcc_warnings=no
    fi]
