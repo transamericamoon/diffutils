@@ -205,7 +205,7 @@ static struct option const longopts[] =
   {"palette", 1, 0, COLOR_PALETTE_OPTION},
   {"rcs", 0, 0, 'n'},
   {"recursive", 0, 0, 'r'},
-  {"recursiveAbsent", 0, 0, 'R'},
+  {"recursive-absent", 0, 0, 'R'},
   {"report-identical-files", 0, 0, 's'},
   {"sdiff-merge-assist", 0, 0, SDIFF_MERGE_ASSIST_OPTION},
   {"show-c-function", 0, 0, 'p'},

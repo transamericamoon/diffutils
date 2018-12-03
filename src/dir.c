@@ -71,7 +71,7 @@ dir_read (struct file_data const *dir, struct dirdata *dirdata)
   data = 0;
 
   /* store full path to file for exclusion check */
-  char buf[4096];
+  //char buf[4096];
 
   if (dir->desc != -1)
     {
@@ -100,9 +100,14 @@ dir_read (struct file_data const *dir, struct dirdata *dirdata)
 	    continue;
 
       /* Check entire file path for pattern */
-      snprintf(buf, sizeof buf, "%s/%s", dir->name, d_name);
-	  if (excluded_file_name (excluded, buf))
-	    continue;
+      char *free0 = file_name_concat (dir->name, d_name, NULL);
+      //snprintf(buf, sizeof buf, "%s/%s", dir->name, d_name);
+	  if (excluded_file_name (excluded, free0))
+            {
+              free(free0);
+              continue;
+            }
+            free(free0);
 	  //if (excluded_file_name (excluded, d_name))
 	  //  continue;
 
